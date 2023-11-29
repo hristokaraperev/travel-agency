@@ -23,8 +23,6 @@ public class Location {
 	private LocalDateTime created;
 	@UpdateTimestamp
 	private LocalDateTime updated;
-	@Column(name = "status", nullable = false)
-	private Boolean status;
 	
 	@Column(name = "street", length = 100, nullable = false)
 	private String street;
@@ -52,12 +50,6 @@ public class Location {
 	}
 	public void setUpdated(LocalDateTime updated) {
 		this.updated = updated;
-	}
-	public Boolean getStatus() {
-		return status;
-	}
-	public void setStatus(Boolean status) {
-		this.status = status;
 	}
 	public String getStreet() {
 		return street;

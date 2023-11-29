@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.fmi.plovdiv.travelagency.dao.ContactRepository;
-import org.fmi.plovdiv.travelagency.dao.dto.ContactDTO;
+import org.fmi.plovdiv.travelagency.dao.dto.contact.ResponseContactDTO;
 import org.fmi.plovdiv.travelagency.exceptions.BadContactInformationException;
 import org.fmi.plovdiv.travelagency.model.Contact;
 import org.springframework.stereotype.Service;
@@ -19,58 +19,65 @@ public class ContactService {
 		this.contactRepository = contactRepository;
 	}
 	
-	public ContactDTO getOne(Long contactId) {
-		// throws NoSuchElementException
+	public ResponseContactDTO getOne(Long contactId) {
 		Contact c = contactRepository.findById(contactId).get();
 		if (!c.getStatus()) {
 			throw new NoSuchElementException();
 		}
-		return new ContactDTO(c.getId(), c.getContactName(), c.getPhoneNumber());
+		return new ResponseContactDTO(c.getId(), c.getContactName(), c.getPhoneNumber());
 	}
 
-	public List<ContactDTO> getAll() {
+	public List<ResponseContactDTO> getAll() {
 		List<Contact> c = contactRepository.findAll();
-		List<ContactDTO> output = new ArrayList<ContactDTO>();
+		List<ResponseContactDTO> output = new ArrayList<ResponseContactDTO>();
 		for (Contact i : c) {
 			if (i.getStatus()) {
-				output.add(new ContactDTO(i.getId(), i.getContactName(), i.getPhoneNumber()));
+				output.add(new ResponseContactDTO(i.getId(), i.getContactName(), i.getPhoneNumber()));
 			}
 		}
 		return output;
 	}
 	
-	public ContactDTO create(ContactDTO input) throws BadContactInformationException {
-		Contact c = new Contact();
-		c.setStatus(true);
-		c.setContactName(input.getContactName());
-		// Phone number is supposed to be unique
+	public ResponseContactDTO create(ResponseContactDTO input) throws BadContactInformationException {
 		if (contactRepository.existsContactByPhoneNumber(input.getPhoneNumber())) {
 			throw new BadContactInformationException();
 		}
-		c.setPhoneNumber(input.getPhoneNumber());
+		Contact c = new Contact();
+		c.setStatus(true);
+		if (!input.getContactName().isEmpty()) {
+			c.setContactName(input.getContactName());
+		} else {
+			throw new BadContactInformationException();
+		}
+		if (!input.getPhoneNumber().isEmpty()) {
+			c.setPhoneNumber(input.getPhoneNumber());
+		} else {
+			throw new BadContactInformationException();
+		}
 		c = contactRepository.save(c);
-		return new ContactDTO(c.getId(), c.getContactName(), c.getPhoneNumber());
+		return new ResponseContactDTO(c.getId(), c.getContactName(), c.getPhoneNumber());
 	}
 	
-	public ContactDTO update(ContactDTO input) throws BadContactInformationException {
-		// throws NoSuchElementException
+	public ResponseContactDTO update(ResponseContactDTO input) throws BadContactInformationException {
+		if (contactRepository.existsContactByPhoneNumber(input.getPhoneNumber())) {
+			throw new BadContactInformationException();
+		}
 		Contact c = contactRepository.findById(input.getId()).get();
 		if (c.getStatus()) {
-			c.setContactName(input.getContactName());
-			// Phone number is supposed to be unique
-			if (contactRepository.existsContactByPhoneNumber(input.getPhoneNumber())) {
-				throw new BadContactInformationException();
+			if (!c.getContactName().isEmpty()) {
+				c.setContactName(input.getContactName());
 			}
-			c.setPhoneNumber(input.getPhoneNumber());
+			if (!c.getPhoneNumber().isEmpty()) {
+				c.setPhoneNumber(input.getPhoneNumber());
+			}
 			c = contactRepository.save(c);
 		} else {
 			throw new NoSuchElementException();
 		}
-		return new ContactDTO(c.getId(), c.getContactName(), c.getPhoneNumber());
+		return new ResponseContactDTO(c.getId(), c.getContactName(), c.getPhoneNumber());
 	}
 	
 	public Boolean delete(Long contactId) {
-		// throws NoSuchElementException
 		Contact c = contactRepository.findById(contactId).get();
 		c.setStatus(false);
 		contactRepository.save(c);

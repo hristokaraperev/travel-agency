@@ -10,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -24,17 +25,19 @@ public class Holiday {
 	private LocalDateTime created;
 	@UpdateTimestamp
 	private LocalDateTime updated;
-	@Column(name = "status", nullable = false)
-	private Boolean status;
 	
-	@OneToOne
-	private Destination destination;
+	@ManyToOne
+	private Location location;
+	@Column(name = "title", length = 100, nullable = false)
+	private String title;
 	@Column(name = "start_date", nullable = false)
 	private LocalDateTime startDate;
 	@Column(name = "duration", nullable = false)
 	private Integer duration;
 	@Column(name = "price", nullable = false)
 	private Double price;
+	@Column(name = "free_slots", nullable = false)
+	private Integer freeSlots;
 	
 	public Long getId() {
 		return id;
@@ -54,18 +57,6 @@ public class Holiday {
 	public void setUpdated(LocalDateTime updated) {
 		this.updated = updated;
 	}
-	public Boolean getStatus() {
-		return status;
-	}
-	public void setStatus(Boolean status) {
-		this.status = status;
-	}
-	public Destination getDestination() {
-		return destination;
-	}
-	public void setDestination(Destination destination) {
-		this.destination = destination;
-	}
 	public LocalDateTime getStartDate() {
 		return startDate;
 	}
@@ -84,4 +75,23 @@ public class Holiday {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
+	public Location getLocation() {
+		return location;
+	}
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public Integer getFreeSlots() {
+		return freeSlots;
+	}
+	public void setFreeSlots(Integer freeSlots) {
+		this.freeSlots = freeSlots;
+	}
+	
 }

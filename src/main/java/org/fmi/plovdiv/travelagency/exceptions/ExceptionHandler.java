@@ -2,6 +2,7 @@ package org.fmi.plovdiv.travelagency.exceptions;
 
 import java.util.NoSuchElementException;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -20,4 +21,24 @@ public class ExceptionHandler {
 	public void handleBadContactInformationException() {
 		
 	}
+	
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	@org.springframework.web.bind.annotation.ExceptionHandler(DataIntegrityViolationException.class)
+	public void handleDataIntegrityViolationException() {
+		
+	}
+	
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	@org.springframework.web.bind.annotation.ExceptionHandler(BadDestinationInformationException.class)
+	public void handleBadDestinationInformationException() {
+		
+	}
+	
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	@org.springframework.web.bind.annotation.ExceptionHandler(BadLocationInformationException.class)
+	public void handleBadLocationInformationException() {
+		
+	}
+	
+	
 }

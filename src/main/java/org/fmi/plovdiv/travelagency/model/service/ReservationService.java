@@ -7,11 +7,11 @@ import org.fmi.plovdiv.travelagency.dao.DestinationRepository;
 import org.fmi.plovdiv.travelagency.dao.HolidayRepository;
 import org.fmi.plovdiv.travelagency.dao.LocationRepository;
 import org.fmi.plovdiv.travelagency.dao.ReservationRepository;
-import org.fmi.plovdiv.travelagency.dao.dto.ContactDTO;
 import org.fmi.plovdiv.travelagency.dao.dto.DestinationDTO;
 import org.fmi.plovdiv.travelagency.dao.dto.HolidayDTO;
 import org.fmi.plovdiv.travelagency.dao.dto.LocationDTO;
 import org.fmi.plovdiv.travelagency.dao.dto.ReservationDTO;
+import org.fmi.plovdiv.travelagency.dao.dto.contact.ResponseContactDTO;
 import org.springframework.stereotype.Service;
 
 @Service

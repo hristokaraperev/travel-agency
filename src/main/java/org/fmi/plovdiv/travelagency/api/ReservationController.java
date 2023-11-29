@@ -2,8 +2,8 @@ package org.fmi.plovdiv.travelagency.api;
 
 import java.util.List;
 
-import org.fmi.plovdiv.travelagency.dao.dto.ContactDTO;
 import org.fmi.plovdiv.travelagency.dao.dto.ReservationDTO;
+import org.fmi.plovdiv.travelagency.dao.dto.contact.ResponseContactDTO;
 import org.fmi.plovdiv.travelagency.model.service.ReservationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;

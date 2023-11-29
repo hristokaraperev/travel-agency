@@ -1,12 +1,31 @@
 package org.fmi.plovdiv.travelagency.dao.dto;
 
+import jakarta.validation.constraints.Size;
+
 public class LocationDTO {
 
 	private Long id;
+	@Size(min = 0, max = 100, message = "Street name should not be over 100 characters")
 	private String street;
+	@Size(min = 0, max = 5, message = "Street number should not be over 5 characters")
 	private String number;
+	@Size(min = 0, max = 50, message = "City should not be over 50 characters")
 	private String city;
+	@Size(min = 0, max = 50, message = "Country should not be over 50 characters")
 	private String country;
+
+	public LocationDTO() {
+		super();
+	}
+
+	public LocationDTO(Long id, String street, String number, String city, String country) {
+		super();
+		this.id = id;
+		this.street = street;
+		this.number = number;
+		this.city = city;
+		this.country = country;
+	}
 	
 	public Long getId() {
 		return id;

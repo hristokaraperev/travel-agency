@@ -2,11 +2,13 @@ package org.fmi.plovdiv.travelagency.dao.dto;
 
 import java.util.List;
 
+import org.fmi.plovdiv.travelagency.dao.dto.contact.ResponseContactDTO;
+
 public class ReservationDTO {
 
 	private Long id;
 	private HolidayDTO holiday;
-	private List<ContactDTO> contacts;
+	private List<ResponseContactDTO> contacts;
 	
 	public Long getId() {
 		return id;
@@ -20,10 +22,10 @@ public class ReservationDTO {
 	public void setHoliday(HolidayDTO holiday) {
 		this.holiday = holiday;
 	}
-	public List<ContactDTO> getContacts() {
+	public List<ResponseContactDTO> getContacts() {
 		return contacts;
 	}
-	public void setContacts(List<ContactDTO> contacts) {
+	public void setContacts(List<ResponseContactDTO> contacts) {
 		this.contacts = contacts;
 	}
 }

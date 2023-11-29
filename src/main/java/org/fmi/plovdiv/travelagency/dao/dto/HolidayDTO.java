@@ -2,14 +2,34 @@ package org.fmi.plovdiv.travelagency.dao.dto;
 
 import java.time.LocalDateTime;
 
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
+
 public class HolidayDTO {
 
 	private Long id;
 	private DestinationDTO destination;
+	@FutureOrPresent
 	private LocalDateTime startDate;
+	@PositiveOrZero
 	private Integer duration;
+	@PositiveOrZero
 	private Double price;
 	
+	public HolidayDTO(Long id, DestinationDTO destination, LocalDateTime startDate, Integer duration, Double price) {
+		super();
+		this.id = id;
+		this.destination = destination;
+		this.startDate = startDate;
+		this.duration = duration;
+		this.price = price;
+	}
+	
+	public HolidayDTO() {
+		super();
+	}
+
 	public Long getId() {
 		return id;
 	}

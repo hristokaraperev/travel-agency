@@ -26,13 +26,14 @@ public class Reservation {
 	private LocalDateTime created;
 	@UpdateTimestamp
 	private LocalDateTime updated;
-	@Column(name = "status", nullable = false)
-	private Boolean status;
 	
+	@Column(name = "contact_name", length = 100, nullable = false)
+	private String contactName;
+	@Column(name = "phone_number", length = 10, nullable = false, unique = true)
+	private String phoneNumber;
 	@ManyToOne
 	private Holiday holiday;
-	@OneToMany
-	private List<Contact> contacts;
+	
 	
 	public Long getId() {
 		return id;
@@ -52,24 +53,25 @@ public class Reservation {
 	public void setUpdated(LocalDateTime updated) {
 		this.updated = updated;
 	}
-	public Boolean getStatus() {
-		return status;
-	}
-	public void setStatus(Boolean status) {
-		this.status = status;
-	}
 	public Holiday getHoliday() {
 		return holiday;
 	}
 	public void setHoliday(Holiday holiday) {
 		this.holiday = holiday;
 	}
-	public List<Contact> getContacts() {
-		return contacts;
+	public String getContactName() {
+		return contactName;
 	}
-	public void setContacts(List<Contact> contacts) {
-		this.contacts = contacts;
+	public void setContactName(String contactName) {
+		this.contactName = contactName;
 	}
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	
 	
 	
 }
