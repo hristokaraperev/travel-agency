@@ -4,7 +4,12 @@ import java.util.List;
 
 import org.fmi.plovdiv.travelagency.dao.dto.ReservationDTO;
 import org.fmi.plovdiv.travelagency.dao.dto.contact.ResponseContactDTO;
+import org.fmi.plovdiv.travelagency.dao.dto.reservation.CreateReservationDTO;
+import org.fmi.plovdiv.travelagency.dao.dto.reservation.ResponseReservationDTO;
+import org.fmi.plovdiv.travelagency.dao.dto.reservation.UpdateReservationDTO;
+import org.fmi.plovdiv.travelagency.exceptions.BadReservationInformationException;
 import org.fmi.plovdiv.travelagency.model.service.ReservationService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
 @RestController
-@RequestMapping(produces = "application/json", consumes = "application/json", name = "reservation-controller", value = "/reservations")
+@RequestMapping("/reservations")
 public class ReservationController {
 
 	private final ReservationService reservationService;
@@ -27,27 +34,27 @@ public class ReservationController {
 	}
 	
 	@GetMapping("/{reservationId}")
-	public ResponseEntity<ReservationDTO> getOne(@PathVariable Long reservationId) {
-		return null;
+	public ResponseEntity<ResponseReservationDTO> getOne(@PathVariable Long reservationId) {
+		return new ResponseEntity<ResponseReservationDTO>(reservationService.getOne(reservationId), HttpStatus.OK);
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<ReservationDTO>> getAll() {
-		return null;
+	public ResponseEntity<List<ResponseReservationDTO>> getAll() {
+		return new ResponseEntity<List<ResponseReservationDTO>>(reservationService.getAll(), HttpStatus.OK);
 	}
 	
 	@PostMapping
-	public ResponseEntity<ReservationDTO> create(@RequestBody ReservationDTO dto) {
-		return null;
+	public ResponseEntity<ResponseReservationDTO> create(@Valid @RequestBody CreateReservationDTO dto) throws BadReservationInformationException {
+		return new ResponseEntity<ResponseReservationDTO>(reservationService.create(dto), HttpStatus.CREATED);
 	}
 	
 	@PutMapping
-	public ResponseEntity<ReservationDTO> update(@RequestBody ReservationDTO dto) {
-		return null;
+	public ResponseEntity<ResponseReservationDTO> update(@Valid @RequestBody UpdateReservationDTO dto) throws BadReservationInformationException {
+		return new ResponseEntity<ResponseReservationDTO>(reservationService.update(dto), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{reservationId}")
-	public ResponseEntity<ReservationDTO> delete(@PathVariable Long reservationId) {
-		return null;
+	public ResponseEntity<Boolean> delete(@PathVariable Long reservationId) {
+		return new ResponseEntity<Boolean>(reservationService.delete(reservationId), HttpStatus.OK);
 	}
 }

@@ -8,9 +8,13 @@ import javax.swing.text.BadLocationException;
 
 import org.fmi.plovdiv.travelagency.dao.LocationRepository;
 import org.fmi.plovdiv.travelagency.dao.dto.LocationDTO;
+import org.fmi.plovdiv.travelagency.dao.dto.location.CreateLocationDTO;
+import org.fmi.plovdiv.travelagency.dao.dto.location.ResponseLocationDTO;
+import org.fmi.plovdiv.travelagency.dao.dto.location.UpdateLocationDTO;
 import org.fmi.plovdiv.travelagency.exceptions.BadContactInformationException;
 import org.fmi.plovdiv.travelagency.exceptions.BadLocationInformationException;
 import org.fmi.plovdiv.travelagency.model.Location;
+import org.fmi.plovdiv.travelagency.util.EntityToDtoMapper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,98 +26,59 @@ public class LocationService {
 		this.locationRepository = locationRepository;
 	}
 	
-	public LocationDTO getOne(Long locationId) {
+	public ResponseLocationDTO getOne(Long locationId) {
 		Location l = locationRepository.findById(locationId).get();
-		if (!l.getStatus()) {
-			throw new NoSuchElementException();
-		}
-		return new LocationDTO(
-				l.getId(), 
-				l.getStreet(), 
-				l.getNumber(), 
-				l.getCity(), 
-				l.getCountry());
+		return EntityToDtoMapper.toDto(l);
 	}
 
-	public List<LocationDTO> getAll() {
+	public List<ResponseLocationDTO> getAll() {
 		List<Location> l = locationRepository.findAll();
-		List<LocationDTO> output = new ArrayList<LocationDTO>();
+		List<ResponseLocationDTO> output = new ArrayList<ResponseLocationDTO>();
 		for (Location i : l) {
-			if (i.getStatus()) {
-				output.add(new LocationDTO(
-						i.getId(), 
-						i.getStreet(), 
-						i.getNumber(), 
-						i.getCity(), 
-						i.getCountry()));
-			}
+			output.add(EntityToDtoMapper.toDto(i));
 		}
 		return output;
 	}
 	
-	public LocationDTO create(LocationDTO input) throws BadLocationInformationException {
+	public ResponseLocationDTO create(CreateLocationDTO input) throws BadLocationInformationException {
 		Location l = new Location();
-		l.setStatus(true);
-		if (!input.getStreet().isEmpty()) {
-			l.setStreet(input.getStreet());
-		} else {
+		if (locationRepository.existsLocationByStreetAndNumber(input.getStreet(), input.getNumber())) {
 			throw new BadLocationInformationException();
 		}
-		if (!input.getNumber().isEmpty()) {
-			l.setNumber(input.getNumber());
-		} else {
-			throw new BadLocationInformationException();
-		}
-		if (!input.getCity().isEmpty()) {
-			l.setCity(input.getCity());
-		} else {
-			throw new BadLocationInformationException();
-		}
-		if (!input.getCountry().isEmpty()) {
-			l.setCountry(input.getCountry());
-		} else {
-			throw new BadLocationInformationException();
-		}
+		l.setStreet(input.getStreet());
+		l.setNumber(input.getNumber());
+		l.setCity(input.getCity());
+		l.setCountry(input.getCountry());
+		
 		l = locationRepository.save(l);
-		return new LocationDTO(
-				l.getId(), 
-				l.getStreet(), 
-				l.getNumber(), 
-				l.getCity(), 
-				l.getCountry());
+		return EntityToDtoMapper.toDto(l);
 	}
 	
-	public LocationDTO update(LocationDTO input) {
+	public ResponseLocationDTO update(UpdateLocationDTO input) {
 		Location l = locationRepository.findById(input.getId()).get();
-		if (l.getStatus()) {
-			if (!input.getStreet().isEmpty()) {
-				l.setStreet(input.getStreet());
-			} 
-			if (!input.getNumber().isEmpty()) {
-				l.setNumber(input.getNumber());
-			} 
-			if (!input.getCity().isEmpty()) {
-				l.setCity(input.getCity());
-			} 
-			if (!input.getCountry().isEmpty()) {
-				l.setCountry(input.getCountry());
-			} 
-			l = locationRepository.save(l);
-		} else {
-			throw new NoSuchElementException();
-		}
-		return new LocationDTO(
-				l.getId(), 
-				l.getStreet(), 
-				l.getNumber(), 
-				l.getCity(), 
-				l.getCountry());
+		if (!input.getStreet().isEmpty()) {
+			l.setStreet(input.getStreet());
+		} 
+		if (!input.getNumber().isEmpty()) {
+			l.setNumber(input.getNumber());
+		} 
+		if (!input.getCity().isEmpty()) {
+			l.setCity(input.getCity());
+		} 
+		if (!input.getCountry().isEmpty()) {
+			l.setCountry(input.getCountry());
+		} 
+
+		l = locationRepository.save(l);
+		
+		return EntityToDtoMapper.toDto(l);
 	}
 	
 	public Boolean delete(Long locationId) {
-		Location l = locationRepository.findById(locationId).get();
-		l.setStatus(false);
-		locationRepository.save(l);
-		return true;
+		if (locationRepository.existsById(locationId)) {
+			locationRepository.deleteById(locationId);
+			return true;
+		}
+		return false;
 	}
 }

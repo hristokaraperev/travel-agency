@@ -17,20 +17,14 @@ public class ExceptionHandler {
 	}
 	
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
-	@org.springframework.web.bind.annotation.ExceptionHandler(BadContactInformationException.class)
-	public void handleBadContactInformationException() {
-		
-	}
-	
-	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	@org.springframework.web.bind.annotation.ExceptionHandler(DataIntegrityViolationException.class)
 	public void handleDataIntegrityViolationException() {
 		
 	}
 	
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
-	@org.springframework.web.bind.annotation.ExceptionHandler(BadDestinationInformationException.class)
-	public void handleBadDestinationInformationException() {
+	@org.springframework.web.bind.annotation.ExceptionHandler(BadReservationInformationException.class)
+	public void handleBadReservationInformationException() {
 		
 	}
 	

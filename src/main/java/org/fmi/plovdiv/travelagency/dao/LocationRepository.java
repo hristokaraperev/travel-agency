@@ -4,4 +4,5 @@ import org.fmi.plovdiv.travelagency.model.Location;
 
 public interface LocationRepository extends BaseRepository<Location, Long> {
 
+	boolean existsLocationByStreetAndNumber(String street, String number);
 }

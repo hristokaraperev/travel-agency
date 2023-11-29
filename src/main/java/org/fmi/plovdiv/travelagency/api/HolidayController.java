@@ -3,7 +3,12 @@ package org.fmi.plovdiv.travelagency.api;
 import java.util.List;
 
 import org.fmi.plovdiv.travelagency.dao.dto.HolidayDTO;
+import org.fmi.plovdiv.travelagency.dao.dto.holiday.CreateHolidayDTO;
+import org.fmi.plovdiv.travelagency.dao.dto.holiday.ResponseHolidayDTO;
+import org.fmi.plovdiv.travelagency.dao.dto.holiday.UpdateHolidayDTO;
+import org.fmi.plovdiv.travelagency.exceptions.BadHolidayInformationException;
 import org.fmi.plovdiv.travelagency.model.service.HolidayService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
 @RestController
-@RequestMapping(produces = "application/json", consumes = "application/json", name = "holiday-controller", value = "/holidays")
+@RequestMapping("/holidays")
 public class HolidayController {
 
 	private final HolidayService holidayService;
@@ -26,27 +33,27 @@ public class HolidayController {
 	}
 	
 	@GetMapping("/{holidayId}")
-	public ResponseEntity<HolidayDTO> getOne(@PathVariable Long holidayId) {
-		return null;
+	public ResponseEntity<ResponseHolidayDTO> getOne(@PathVariable Long holidayId) {
+		return new ResponseEntity<ResponseHolidayDTO>(holidayService.getOne(holidayId), HttpStatus.OK);
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<HolidayDTO>> getAll() {
-		return null;
+	public ResponseEntity<List<ResponseHolidayDTO>> getAll() {
+		return new ResponseEntity<List<ResponseHolidayDTO>>(holidayService.getAll(), HttpStatus.OK);
 	}
 	
 	@PostMapping
-	public ResponseEntity<HolidayDTO> create(@RequestBody HolidayDTO dto) {
-		return null;
+	public ResponseEntity<ResponseHolidayDTO> create(@Valid @RequestBody CreateHolidayDTO dto) throws BadHolidayInformationException {
+		return new ResponseEntity<ResponseHolidayDTO>(holidayService.create(dto), HttpStatus.CREATED);
 	}
 	
 	@PutMapping
-	public ResponseEntity<HolidayDTO> update(@RequestBody HolidayDTO dto) {
-		return null;
+	public ResponseEntity<ResponseHolidayDTO> update(@Valid @RequestBody UpdateHolidayDTO dto) throws BadHolidayInformationException {
+		return new ResponseEntity<ResponseHolidayDTO>(holidayService.update(dto), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{holidayId}")
-	public ResponseEntity<HolidayDTO> delete(@PathVariable Long holidayId) {
-		return null;
+	public ResponseEntity<Boolean> delete(@PathVariable Long holidayId) {
+		return new ResponseEntity<Boolean>(holidayService.delete(holidayId), HttpStatus.OK);
 	}
 }

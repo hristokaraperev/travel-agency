@@ -3,6 +3,9 @@ package org.fmi.plovdiv.travelagency.api;
 import java.util.List;
 
 import org.fmi.plovdiv.travelagency.dao.dto.LocationDTO;
+import org.fmi.plovdiv.travelagency.dao.dto.location.CreateLocationDTO;
+import org.fmi.plovdiv.travelagency.dao.dto.location.ResponseLocationDTO;
+import org.fmi.plovdiv.travelagency.dao.dto.location.UpdateLocationDTO;
 import org.fmi.plovdiv.travelagency.exceptions.BadLocationInformationException;
 import org.fmi.plovdiv.travelagency.model.service.LocationService;
 import org.springframework.http.HttpStatus;
@@ -30,23 +33,23 @@ public class LocationController {
 	}
 	
 	@GetMapping("/{locationId}")
-	public ResponseEntity<LocationDTO> getOne(@PathVariable(name = "locationId") Long locationId) {
-		return new ResponseEntity<LocationDTO>(locationService.getOne(locationId), HttpStatus.OK);
+	public ResponseEntity<ResponseLocationDTO> getOne(@PathVariable(name = "locationId") Long locationId) {
+		return new ResponseEntity<ResponseLocationDTO>(locationService.getOne(locationId), HttpStatus.OK);
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<LocationDTO>> getAll() {
-		return new ResponseEntity<List<LocationDTO>>(locationService.getAll(), HttpStatus.OK);
+	public ResponseEntity<List<ResponseLocationDTO>> getAll() {
+		return new ResponseEntity<List<ResponseLocationDTO>>(locationService.getAll(), HttpStatus.OK);
 	}
 	
 	@PostMapping
-	public ResponseEntity<LocationDTO> create(@Valid @RequestBody LocationDTO dto) throws BadLocationInformationException {
-		return new ResponseEntity<LocationDTO>(locationService.create(dto), HttpStatus.CREATED);
+	public ResponseEntity<ResponseLocationDTO> create(@Valid @RequestBody CreateLocationDTO dto) throws BadLocationInformationException {
+		return new ResponseEntity<ResponseLocationDTO>(locationService.create(dto), HttpStatus.CREATED);
 	}
 	
 	@PutMapping
-	public ResponseEntity<LocationDTO> update(@RequestBody LocationDTO dto) {
-		return new ResponseEntity<LocationDTO>(locationService.update(dto), HttpStatus.OK);
+	public ResponseEntity<ResponseLocationDTO> update(@Valid @RequestBody UpdateLocationDTO dto) {
+		return new ResponseEntity<ResponseLocationDTO>(locationService.update(dto), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{locationId}")
