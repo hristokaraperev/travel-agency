@@ -2,7 +2,6 @@ package org.fmi.plovdiv.travelagency.api;
 
 import java.util.List;
 
-import org.fmi.plovdiv.travelagency.dao.dto.HolidayDTO;
 import org.fmi.plovdiv.travelagency.dao.dto.holiday.CreateHolidayDTO;
 import org.fmi.plovdiv.travelagency.dao.dto.holiday.ResponseHolidayDTO;
 import org.fmi.plovdiv.travelagency.dao.dto.holiday.UpdateHolidayDTO;

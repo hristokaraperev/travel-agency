@@ -2,7 +2,6 @@ package org.fmi.plovdiv.travelagency.api;
 
 import java.util.List;
 
-import org.fmi.plovdiv.travelagency.dao.dto.LocationDTO;
 import org.fmi.plovdiv.travelagency.dao.dto.location.CreateLocationDTO;
 import org.fmi.plovdiv.travelagency.dao.dto.location.ResponseLocationDTO;
 import org.fmi.plovdiv.travelagency.dao.dto.location.UpdateLocationDTO;

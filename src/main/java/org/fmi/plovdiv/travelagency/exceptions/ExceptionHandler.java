@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -34,5 +35,9 @@ public class ExceptionHandler {
 		
 	}
 	
-	
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	@org.springframework.web.bind.annotation.ExceptionHandler(MethodArgumentNotValidException.class)
+	public void handleMethodArgumentNotValidException() {
+		
+	}
 }

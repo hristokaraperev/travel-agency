@@ -2,8 +2,6 @@ package org.fmi.plovdiv.travelagency.api;
 
 import java.util.List;
 
-import org.fmi.plovdiv.travelagency.dao.dto.ReservationDTO;
-import org.fmi.plovdiv.travelagency.dao.dto.contact.ResponseContactDTO;
 import org.fmi.plovdiv.travelagency.dao.dto.reservation.CreateReservationDTO;
 import org.fmi.plovdiv.travelagency.dao.dto.reservation.ResponseReservationDTO;
 import org.fmi.plovdiv.travelagency.dao.dto.reservation.UpdateReservationDTO;

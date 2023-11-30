@@ -2,16 +2,11 @@ package org.fmi.plovdiv.travelagency.model.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-
-import javax.swing.text.BadLocationException;
 
 import org.fmi.plovdiv.travelagency.dao.LocationRepository;
-import org.fmi.plovdiv.travelagency.dao.dto.LocationDTO;
 import org.fmi.plovdiv.travelagency.dao.dto.location.CreateLocationDTO;
 import org.fmi.plovdiv.travelagency.dao.dto.location.ResponseLocationDTO;
 import org.fmi.plovdiv.travelagency.dao.dto.location.UpdateLocationDTO;
-import org.fmi.plovdiv.travelagency.exceptions.BadContactInformationException;
 import org.fmi.plovdiv.travelagency.exceptions.BadLocationInformationException;
 import org.fmi.plovdiv.travelagency.model.Location;
 import org.fmi.plovdiv.travelagency.util.EntityToDtoMapper;
