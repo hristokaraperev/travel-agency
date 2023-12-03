@@ -50,10 +50,10 @@ public class HolidayService {
 				h = h.filter(holiday -> holiday.getLocation().getId() == locationId);
 			}
 			if (startDate != null) {
-				h = h.filter(holiday -> holiday.getStartDate().isEqual(startDate));
+				h = h.filter(holiday -> holiday.getStartDate().isAfter(startDate));
 			}
 			if (duration != null) {
-				h = h.filter(holiday -> holiday.getDuration() == duration);
+				h = h.filter(holiday -> holiday.getDuration() >= duration);
 			}
 			
 			h.forEach(holiday -> output.add(EntityToDtoMapper.toDto(holiday)));
