@@ -1,5 +1,6 @@
 package org.fmi.plovdiv.travelagency.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -31,7 +32,7 @@ public class Holiday {
 	@Column(name = "title", length = 100, nullable = false)
 	private String title;
 	@Column(name = "start_date", nullable = false)
-	private LocalDateTime startDate;
+	private LocalDate startDate;
 	@Column(name = "duration", nullable = false)
 	private Integer duration;
 	@Column(name = "price", nullable = false)
@@ -57,10 +58,10 @@ public class Holiday {
 	public void setUpdated(LocalDateTime updated) {
 		this.updated = updated;
 	}
-	public LocalDateTime getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(LocalDateTime startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 	public Integer getDuration() {

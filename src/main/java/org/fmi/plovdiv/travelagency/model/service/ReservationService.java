@@ -1,5 +1,6 @@
 package org.fmi.plovdiv.travelagency.model.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 

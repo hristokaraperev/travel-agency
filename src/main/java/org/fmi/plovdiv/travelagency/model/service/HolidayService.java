@@ -1,11 +1,14 @@
 package org.fmi.plovdiv.travelagency.model.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.fmi.plovdiv.travelagency.dao.HolidayRepository;
 import org.fmi.plovdiv.travelagency.dao.LocationRepository;
+import org.fmi.plovdiv.travelagency.dao.ReservationRepository;
 import org.fmi.plovdiv.travelagency.dao.dto.holiday.CreateHolidayDTO;
 import org.fmi.plovdiv.travelagency.dao.dto.holiday.ResponseHolidayDTO;
 import org.fmi.plovdiv.travelagency.dao.dto.holiday.UpdateHolidayDTO;
@@ -20,23 +23,52 @@ public class HolidayService {
 	
 	private final HolidayRepository holidayRepository;
 	private final LocationRepository locationRepository;
+	private final ReservationRepository reservationRepository;
 	
-	public HolidayService(HolidayRepository holidayRepository, LocationRepository locationRepository) {
+	public HolidayService(HolidayRepository holidayRepository, LocationRepository locationRepository, ReservationRepository reservationRepository) {
 		super();
 		this.holidayRepository = holidayRepository;
 		this.locationRepository = locationRepository;
+		this.reservationRepository = reservationRepository;
 	}
 
 	public ResponseHolidayDTO getOne(Long holidayId) {
 		Holiday h = holidayRepository.findById(holidayId).get();
 		return EntityToDtoMapper.toDto(h);
 	}
+	
+	public List<ResponseHolidayDTO> getAll(Long locationId, LocalDate startDate, Integer duration) {
+		if (locationId == null && startDate == null && duration == null) {
+			return getAll();
+		} else {
+			List<ResponseHolidayDTO> output = new ArrayList<ResponseHolidayDTO>();
+			Stream<Holiday> h = holidayRepository.findAll().stream();
+			
+			h = h.filter(holiday -> holiday.getFreeSlots() > reservationRepository.countByHoliday(holiday));
+			
+			if (locationId != null) {
+				h = h.filter(holiday -> holiday.getLocation().getId() == locationId);
+			}
+			if (startDate != null) {
+				h = h.filter(holiday -> holiday.getStartDate().isEqual(startDate));
+			}
+			if (duration != null) {
+				h = h.filter(holiday -> holiday.getDuration() == duration);
+			}
+			
+			h.forEach(holiday -> output.add(EntityToDtoMapper.toDto(holiday)));
+			
+			return output;
+		}
+	}
 
-	public List<ResponseHolidayDTO> getAll() {
+	private List<ResponseHolidayDTO> getAll() {
 		List<Holiday> h = holidayRepository.findAll();
 		List<ResponseHolidayDTO> output = new ArrayList<ResponseHolidayDTO>();
 		for (Holiday i : h) {
-			output.add(EntityToDtoMapper.toDto(i));
+			if (i.getFreeSlots() > reservationRepository.countByHoliday(i)) {
+				output.add(EntityToDtoMapper.toDto(i));
+			}
 		}
 		return output;
 	}
@@ -49,7 +81,7 @@ public class HolidayService {
 		} catch (Exception e) {
 			throw new BadHolidayInformationException();
 		}
-		if (input.getStartDate().isAfter(LocalDateTime.now())) {
+		if (input.getStartDate().isAfter(LocalDate.now())) {
 			h.setStartDate(input.getStartDate());
 		} else {
 			throw new BadHolidayInformationException();
@@ -83,7 +115,7 @@ public class HolidayService {
 				h.setLocation(l);
 			}
 		}
-		if (input.getStartDate().isAfter(LocalDateTime.now())) {
+		if (input.getStartDate().isAfter(LocalDate.now())) {
 			h.setStartDate(input.getStartDate());
 		} else {
 			throw new BadHolidayInformationException();

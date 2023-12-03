@@ -1,5 +1,6 @@
 package org.fmi.plovdiv.travelagency.dao.dto.holiday;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.fmi.plovdiv.travelagency.dao.dto.location.ResponseLocationDTO;
@@ -9,7 +10,7 @@ public class ResponseHolidayDTO {
 	private Long id;
 	private ResponseLocationDTO location;
 	private String title;
-	private LocalDateTime startDate;
+	private LocalDate startDate;
 	private Integer duration;
 	private Double price;
 	private Integer freeSlots;
@@ -18,7 +19,7 @@ public class ResponseHolidayDTO {
 		super();
 	}
 
-	public ResponseHolidayDTO(Long id, ResponseLocationDTO location, String title, LocalDateTime startDate, Integer duration,
+	public ResponseHolidayDTO(Long id, ResponseLocationDTO location, String title, LocalDate startDate, Integer duration,
 			Double price, Integer freeSlots) {
 		super();
 		this.id = id;
@@ -54,11 +55,11 @@ public class ResponseHolidayDTO {
 		this.title = title;
 	}
 
-	public LocalDateTime getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(LocalDateTime startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 

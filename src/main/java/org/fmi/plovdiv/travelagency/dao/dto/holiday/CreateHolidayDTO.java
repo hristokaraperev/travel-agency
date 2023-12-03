@@ -1,5 +1,6 @@
 package org.fmi.plovdiv.travelagency.dao.dto.holiday;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.FutureOrPresent;
@@ -13,7 +14,7 @@ public class CreateHolidayDTO {
 	@Size(min = 1, max = 100)
 	private String title;
 	
-	private LocalDateTime startDate;
+	private LocalDate startDate;
 	@Positive
 	private Integer duration;
 	@Positive
@@ -26,7 +27,7 @@ public class CreateHolidayDTO {
 	}
 
 	public CreateHolidayDTO(@Positive Long location, @Size(min = 1, max = 100) String title,
-			@FutureOrPresent LocalDateTime startDate, @Positive Integer duration, @Positive Double price,
+			@FutureOrPresent LocalDate startDate, @Positive Integer duration, @Positive Double price,
 			@Positive Integer freeSlots) {
 		super();
 		this.location = location;
@@ -53,11 +54,11 @@ public class CreateHolidayDTO {
 		this.title = title;
 	}
 
-	public LocalDateTime getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(LocalDateTime startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 

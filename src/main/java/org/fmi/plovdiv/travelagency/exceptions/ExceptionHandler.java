@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @ControllerAdvice
 public class ExceptionHandler {
@@ -40,4 +41,12 @@ public class ExceptionHandler {
 	public void handleMethodArgumentNotValidException() {
 		
 	}
+	
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	@org.springframework.web.bind.annotation.ExceptionHandler(MethodArgumentTypeMismatchException.class)
+	public void handleMethodArgumentTypeMismatchException() {
+		
+	}
+	
+	
 }

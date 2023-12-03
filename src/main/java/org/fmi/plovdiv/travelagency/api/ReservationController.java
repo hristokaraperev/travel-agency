@@ -1,5 +1,6 @@
 package org.fmi.plovdiv.travelagency.api;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.fmi.plovdiv.travelagency.dao.dto.reservation.CreateReservationDTO;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;

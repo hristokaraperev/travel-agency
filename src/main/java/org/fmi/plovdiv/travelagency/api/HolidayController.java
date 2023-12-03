@@ -1,5 +1,6 @@
 package org.fmi.plovdiv.travelagency.api;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.fmi.plovdiv.travelagency.dao.dto.holiday.CreateHolidayDTO;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
@@ -37,8 +39,12 @@ public class HolidayController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<ResponseHolidayDTO>> getAll() {
-		return new ResponseEntity<List<ResponseHolidayDTO>>(holidayService.getAll(), HttpStatus.OK);
+	public ResponseEntity<List<ResponseHolidayDTO>> getAll(
+			@RequestParam(name = "locationId", required = false) Long locationId,
+			@RequestParam(name = "startDate", required = false) LocalDate startDate,
+			@RequestParam(name = "duration", required = false) Integer duration
+			) {
+		return new ResponseEntity<List<ResponseHolidayDTO>>(holidayService.getAll(locationId, startDate, duration), HttpStatus.OK);
 	}
 	
 	@PostMapping
