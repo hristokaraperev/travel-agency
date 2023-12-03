@@ -1,7 +1,6 @@
 package org.fmi.plovdiv.travelagency.model.service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -50,7 +49,7 @@ public class HolidayService {
 				h = h.filter(holiday -> holiday.getLocation().getId() == locationId);
 			}
 			if (startDate != null) {
-				h = h.filter(holiday -> holiday.getStartDate().isAfter(startDate));
+				h = h.filter(holiday -> holiday.getStartDate().isAfter(startDate) || holiday.getStartDate().isEqual(startDate));
 			}
 			if (duration != null) {
 				h = h.filter(holiday -> holiday.getDuration() >= duration);
@@ -81,7 +80,7 @@ public class HolidayService {
 		} catch (Exception e) {
 			throw new BadHolidayInformationException();
 		}
-		if (input.getStartDate().isAfter(LocalDate.now())) {
+		if (input.getStartDate().isAfter(LocalDate.now()) || input.getStartDate().isEqual(LocalDate.now())) {
 			h.setStartDate(input.getStartDate());
 		} else {
 			throw new BadHolidayInformationException();
@@ -115,7 +114,7 @@ public class HolidayService {
 				h.setLocation(l);
 			}
 		}
-		if (input.getStartDate().isAfter(LocalDate.now())) {
+		if (input.getStartDate().isAfter(LocalDate.now()) | input.getStartDate().isEqual(LocalDate.now())) {
 			h.setStartDate(input.getStartDate());
 		} else {
 			throw new BadHolidayInformationException();
@@ -144,4 +143,5 @@ public class HolidayService {
 		}
 		return false;
 	}
+	
 }
