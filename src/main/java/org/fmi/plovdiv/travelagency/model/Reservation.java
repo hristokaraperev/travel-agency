@@ -29,7 +29,7 @@ public class Reservation {
 	
 	@Column(name = "contact_name", length = 100, nullable = false)
 	private String contactName;
-	@Column(name = "phone_number", length = 10, nullable = false, unique = true)
+	@Column(name = "phone_number", length = 10, nullable = false)
 	private String phoneNumber;
 	@ManyToOne
 	private Holiday holiday;

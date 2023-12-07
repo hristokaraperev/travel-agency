@@ -36,8 +36,8 @@ public class HolidayService {
 		return EntityToDtoMapper.toDto(h);
 	}
 	
-	public List<ResponseHolidayDTO> getAll(Long locationId, LocalDate startDate, Integer duration) {
-		if (locationId == null && startDate == null && duration == null) {
+	public List<ResponseHolidayDTO> getAll(String location, LocalDate startDate, Integer duration) {
+		if (location == null && startDate == null && duration == null) {
 			return getAll();
 		} else {
 			List<ResponseHolidayDTO> output = new ArrayList<ResponseHolidayDTO>();
@@ -45,8 +45,8 @@ public class HolidayService {
 			
 			h = h.filter(holiday -> holiday.getFreeSlots() > reservationRepository.countByHoliday(holiday));
 			
-			if (locationId != null) {
-				h = h.filter(holiday -> holiday.getLocation().getId() == locationId);
+			if (location != null) {
+				h = h.filter(holiday -> holiday.getLocation().getCity().contains(location) || holiday.getLocation().getCountry().contains(location));
 			}
 			if (startDate != null) {
 				h = h.filter(holiday -> holiday.getStartDate().isAfter(startDate) || holiday.getStartDate().isEqual(startDate));
@@ -85,11 +85,17 @@ public class HolidayService {
 		} else {
 			throw new BadHolidayInformationException();
 		}
+		double p;
+		if (input.getPrice().matches("[1-9]{0,6}.*[0-9]{0,2}")) {
+			p = Double.parseDouble(input.getPrice());
+		} else {
+			throw new BadHolidayInformationException();
+		}
 		
 		h.setLocation(l);
 		h.setTitle(input.getTitle());
 		h.setDuration(input.getDuration());
-		h.setPrice(input.getPrice());
+		h.setPrice(p);
 		h.setFreeSlots(input.getFreeSlots());
 		h = holidayRepository.save(h);
 		

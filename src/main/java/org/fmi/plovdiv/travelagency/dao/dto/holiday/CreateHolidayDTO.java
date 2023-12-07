@@ -17,8 +17,8 @@ public class CreateHolidayDTO {
 	private LocalDate startDate;
 	@Positive
 	private Integer duration;
-	@Positive
-	private Double price;
+	@Size(min = 1, max = 8)
+	private String price;
 	@Positive
 	private Integer freeSlots;
 	
@@ -27,7 +27,7 @@ public class CreateHolidayDTO {
 	}
 
 	public CreateHolidayDTO(@Positive Long location, @Size(min = 1, max = 100) String title,
-			@FutureOrPresent LocalDate startDate, @Positive Integer duration, @Positive Double price,
+			@FutureOrPresent LocalDate startDate, @Positive Integer duration, String price,
 			@Positive Integer freeSlots) {
 		super();
 		this.location = location;
@@ -70,11 +70,11 @@ public class CreateHolidayDTO {
 		this.duration = duration;
 	}
 
-	public Double getPrice() {
+	public String getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 

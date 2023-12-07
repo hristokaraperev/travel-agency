@@ -40,11 +40,11 @@ public class HolidayController {
 	
 	@GetMapping
 	public ResponseEntity<List<ResponseHolidayDTO>> getAll(
-			@RequestParam(name = "locationId", required = false) Long locationId,
+			@RequestParam(name = "location", required = false) String location,
 			@RequestParam(name = "startDate", required = false) LocalDate startDate,
 			@RequestParam(name = "duration", required = false) Integer duration
 			) {
-		return new ResponseEntity<List<ResponseHolidayDTO>>(holidayService.getAll(locationId, startDate, duration), HttpStatus.OK);
+		return new ResponseEntity<List<ResponseHolidayDTO>>(holidayService.getAll(location, startDate, duration), HttpStatus.OK);
 	}
 	
 	@PostMapping
