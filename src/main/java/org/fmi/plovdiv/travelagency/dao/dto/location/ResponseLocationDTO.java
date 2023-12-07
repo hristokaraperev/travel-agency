@@ -7,14 +7,16 @@ public class ResponseLocationDTO {
 	private String number;
 	private String city;
 	private String country;
+	private String imageUrl;
 	
-	public ResponseLocationDTO(Long id, String street, String number, String city, String country) {
+	public ResponseLocationDTO(Long id, String street, String number, String city, String country, String imageUrl) {
 		super();
 		this.id = id;
 		this.street = street;
 		this.number = number;
 		this.city = city;
 		this.country = country;
+		this.imageUrl = imageUrl;
 	}
 
 	public ResponseLocationDTO() {
@@ -59,6 +61,14 @@ public class ResponseLocationDTO {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 	

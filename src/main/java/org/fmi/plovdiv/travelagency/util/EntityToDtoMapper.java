@@ -16,6 +16,7 @@ public class EntityToDtoMapper {
 		dto.setNumber(entity.getNumber());
 		dto.setCity(entity.getCity());
 		dto.setCountry(entity.getCountry());
+		dto.setImageUrl(entity.getImageUrl());
 		return dto;
 	}
 	

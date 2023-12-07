@@ -34,7 +34,7 @@ public class ReservationController {
 	}
 	
 	@GetMapping("/{reservationId}")
-	public ResponseEntity<ResponseReservationDTO> getOne(@PathVariable Long reservationId) {
+	public ResponseEntity<ResponseReservationDTO> getOne(@PathVariable(name = "reservationId") Long reservationId) {
 		return new ResponseEntity<ResponseReservationDTO>(reservationService.getOne(reservationId), HttpStatus.OK);
 	}
 	
@@ -54,7 +54,7 @@ public class ReservationController {
 	}
 	
 	@DeleteMapping("/{reservationId}")
-	public ResponseEntity<Boolean> delete(@PathVariable Long reservationId) {
+	public ResponseEntity<Boolean> delete(@PathVariable(name = "reservationId") Long reservationId) {
 		return new ResponseEntity<Boolean>(reservationService.delete(reservationId), HttpStatus.OK);
 	}
 }

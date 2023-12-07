@@ -32,6 +32,8 @@ public class Location {
 	private String city;
 	@Column(name = "country", length = 50, nullable = false)
 	private String country;
+	@Column(name = "image_url")
+	private String imageUrl;
 	
 	public Long getId() {
 		return id;
@@ -74,6 +76,12 @@ public class Location {
 	}
 	public void setCountry(String country) {
 		this.country = country;
+	}
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 	
 	

@@ -17,7 +17,7 @@ public class CreateHolidayDTO {
 	private LocalDate startDate;
 	@Positive
 	private Integer duration;
-	@Size(min = 1, max = 8)
+	@Size(min = 1, max = 9)
 	private String price;
 	@Positive
 	private Integer freeSlots;

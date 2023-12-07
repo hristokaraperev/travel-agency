@@ -131,8 +131,12 @@ public class HolidayService {
 		if (input.getDuration() > 0) {
 			h.setDuration(input.getDuration());
 		}
-		if (input.getPrice() > 0) {
-			h.setPrice(input.getPrice());
+		if (!input.getPrice().isEmpty()) {
+			if (input.getPrice().matches("[1-9]{0,6}.*[0-9]{0,2}")) {
+				h.setPrice(Double.parseDouble(input.getPrice()));
+			} else {
+				throw new BadHolidayInformationException();
+			}
 		}
 		if (input.getFreeSlots() > 0) {
 			h.setFreeSlots(input.getFreeSlots());

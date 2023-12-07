@@ -34,7 +34,7 @@ public class HolidayController {
 	}
 	
 	@GetMapping("/{holidayId}")
-	public ResponseEntity<ResponseHolidayDTO> getOne(@PathVariable Long holidayId) {
+	public ResponseEntity<ResponseHolidayDTO> getOne(@PathVariable(name = "holidayId") Long holidayId) {
 		return new ResponseEntity<ResponseHolidayDTO>(holidayService.getOne(holidayId), HttpStatus.OK);
 	}
 	
@@ -58,7 +58,7 @@ public class HolidayController {
 	}
 	
 	@DeleteMapping("/{holidayId}")
-	public ResponseEntity<Boolean> delete(@PathVariable Long holidayId) {
+	public ResponseEntity<Boolean> delete(@PathVariable(name = "holidayId") Long holidayId) {
 		return new ResponseEntity<Boolean>(holidayService.delete(holidayId), HttpStatus.OK);
 	}
 }

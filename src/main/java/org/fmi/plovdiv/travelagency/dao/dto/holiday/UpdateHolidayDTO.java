@@ -20,8 +20,8 @@ public class UpdateHolidayDTO {
 	private LocalDate startDate;
 	@PositiveOrZero
 	private Integer duration;
-	@PositiveOrZero
-	private Double price;
+	@Size(min = 0, max = 9)
+	private String price;
 	@PositiveOrZero
 	private Integer freeSlots;
 	
@@ -31,7 +31,7 @@ public class UpdateHolidayDTO {
 
 	public UpdateHolidayDTO(@PositiveOrZero Long id, @PositiveOrZero Long location,
 			@Size(min = 1, max = 100) String title, @FutureOrPresent LocalDate startDate,
-			@PositiveOrZero Integer duration, @PositiveOrZero Double price, @PositiveOrZero Integer freeSlots) {
+			@PositiveOrZero Integer duration, String price, @PositiveOrZero Integer freeSlots) {
 		super();
 		this.id = id;
 		this.location = location;
@@ -82,11 +82,11 @@ public class UpdateHolidayDTO {
 		this.duration = duration;
 	}
 
-	public Double getPrice() {
+	public String getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 

@@ -12,17 +12,21 @@ public class CreateLocationDTO {
 	private String city;
 	@Size(min = 1, max = 50)
 	private String country;
+	@Size(max = 255)
+	private String imageUrl;
 	
 	public CreateLocationDTO(
 			String street,
 			String number, 
 			String city,
-			String country) {
+			String country,
+			String imageUrl) {
 		super();
 		this.street = street;
 		this.number = number;
 		this.city = city;
 		this.country = country;
+		this.imageUrl = imageUrl;
 	}
 
 	public CreateLocationDTO() {
@@ -59,6 +63,14 @@ public class CreateLocationDTO {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 	
 	

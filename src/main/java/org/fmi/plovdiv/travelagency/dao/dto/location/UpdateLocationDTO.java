@@ -16,13 +16,16 @@ public class UpdateLocationDTO {
 	private String city;
 	@Size(min = 0, max = 50)
 	private String country;
+	@Size(min = 0, max = 255)
+	private String imageUrl;
 	
 	public UpdateLocationDTO(
 			Long id, 
 			String street,
 			String number,
 			String city,
-			String country) {
+			String country,
+			String imageUrl) {
 		super();
 		this.id = id;
 		this.street = street;
@@ -73,6 +76,14 @@ public class UpdateLocationDTO {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 	
 	

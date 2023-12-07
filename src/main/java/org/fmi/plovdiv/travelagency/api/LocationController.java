@@ -47,7 +47,7 @@ public class LocationController {
 	}
 	
 	@PutMapping
-	public ResponseEntity<ResponseLocationDTO> update(@Valid @RequestBody UpdateLocationDTO dto) {
+	public ResponseEntity<ResponseLocationDTO> update(@Valid @RequestBody UpdateLocationDTO dto) throws BadLocationInformationException {
 		return new ResponseEntity<ResponseLocationDTO>(locationService.update(dto), HttpStatus.OK);
 	}
 	

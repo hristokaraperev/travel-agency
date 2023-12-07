@@ -37,6 +37,9 @@ public class LocationService {
 	
 	public ResponseLocationDTO create(CreateLocationDTO input) throws BadLocationInformationException {
 		Location l = new Location();
+		if (!input.getImageUrl().matches("https?:\\/\\/")) {
+			throw new BadLocationInformationException();
+		}
 		if (locationRepository.existsLocationByStreetAndNumber(input.getStreet(), input.getNumber())) {
 			throw new BadLocationInformationException();
 		}
@@ -44,13 +47,17 @@ public class LocationService {
 		l.setNumber(input.getNumber());
 		l.setCity(input.getCity());
 		l.setCountry(input.getCountry());
+		l.setImageUrl(input.getImageUrl());
 		
 		l = locationRepository.save(l);
 		return EntityToDtoMapper.toDto(l);
 	}
 	
-	public ResponseLocationDTO update(UpdateLocationDTO input) {
+	public ResponseLocationDTO update(UpdateLocationDTO input) throws BadLocationInformationException {
 		Location l = locationRepository.findById(input.getId()).get();
+		if (!input.getImageUrl().matches("https?:\\/\\/")) {
+			throw new BadLocationInformationException();
+		}
 		if (!input.getStreet().isEmpty()) {
 			l.setStreet(input.getStreet());
 		} 
@@ -63,6 +70,9 @@ public class LocationService {
 		if (!input.getCountry().isEmpty()) {
 			l.setCountry(input.getCountry());
 		} 
+		if (!input.getImageUrl().isEmpty()) {
+			
+		}
 
 		l = locationRepository.save(l);
 		
